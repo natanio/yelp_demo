@@ -1,3 +1,6 @@
+<div class="width-control">
+
+<div class="container">
 <div class="row">
 	<div class="col-md-3">
 		<%= image_tag @restaurant.image_url %>
@@ -28,7 +31,7 @@
 			<h3>No reviews yet. Why not be the first to write one?</h3>
 		<% else %>
 			<% @reviews.each do |review| %>
-				<p><%= review.rating %></p>
+				<div class="star-rating" data-score= <%= review.rating %> ></div>
 				<p><%= review.comment %></p>
 			<% end %>
 		<% end %>
@@ -37,3 +40,15 @@
 
 <%= link_to 'Edit', edit_restaurant_path(@restaurant), class:'btn btn-link' %> |
 <%= link_to 'Back', restaurants_path, class:'btn btn-link' %>
+</div>
+</div>
+
+<script>
+	$('.star-rating').raty({
+		path: 'https://s3-ap-northeast-1.amazonaws.com/my-yelp-2014/stars',
+		readOnly: true,
+  		score: function() {
+   	 		return $(this).attr('data-score');
+  }
+	});
+</script>
